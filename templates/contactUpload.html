@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Protoype-Xa - Upload CSV </title>
+    <style>
+        .titleBanner {
+            padding: 5px;
+            font-size: 2.5em;
+            font-weight: bold;
+            font-family: Bahnschrift;
+            text-align: center;
+        }
+        .frameA {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column-gap: 1em;
+            grid-auto-rows: 700px;
+            border: #ff6a00 1px solid;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body bgcolor=#ddd>
+<div class = "titleBanner">
+    <div>
+    PROTOTYPE Xi
+    </div>
+    <div>
+    UPLOAD CSV
+    </div>
+</div>
+<div class = "frameA">
+{% if messages %}
+    {% for message in messages %}
+        <div>
+            <strong>{{message|safe}}</strong>
+        </div>
+    {% endfor %}
+{% else %}
+{{order}}
+<form method = "post" enctype = "multipart/form-data">
+{% csrf_token %}
+    <label> Upload the project structures CSV file </label>
+    <div>
+    <input type = "file" name = "file">
+    </div>
+    <p>Only accepts CSV files</p>
+    <button type = "submit"> Upload </button>
+</form>
+{% endif %}
+</div>
+</body>
+</html>
