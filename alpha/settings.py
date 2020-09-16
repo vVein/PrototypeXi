@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import psycopg2
 import django_heroku
+import urllib.parse as up
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -79,10 +80,10 @@ WSGI_APPLICATION = 'alpha.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'alpha',
-        'USER' : 'postgres',
-        'PASSWORD' : 'Saniboch69',
-        'HOST' : 'localhost',
+        'NAME': 'njxsogik',
+        'USER' : 'njxsogik',
+        'PASSWORD' : 'WC4jGF5kv2vOUCdVVxD3TeojASHpWg35',
+        'HOST' : 'lallah.db.elephantsql.com',
         'PORT' : '5432'
     }
 }
