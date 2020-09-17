@@ -195,7 +195,7 @@ def order_pipes_create_systems(request):
     all_pipe_entries = Pipes.objects.all()
     df = read_frame(all_pipe_entries)
     df.sort_values(['system', 'order'], ascending=[True, True], inplace=True)
-    df.to_csv(r"C:\Users\Stude\OneDrive\Documents\Python Scripts\Geopak Import\Test_Output\Network_Order.csv")
+    #df.to_csv(r"C:\Users\Stude\OneDrive\Documents\Python Scripts\Geopak Import\Test_Output\Network_Order.csv")
     return render(request, "index1.html")
 
 def retrieve_unchecked_entry(sys, chkl):
