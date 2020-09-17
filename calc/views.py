@@ -94,12 +94,13 @@ def upload_structures_file(request):
         df['Node - ID'] = df['Node - ID'].astype(str)
         df['Node - ID'] = df['Node - ID'].str.replace('.0', '', regex = False)
         for row in df.index:
-            _, created = Structures.objects.get_or_create(
-                structure_id = df.iloc[row][0],
-                type_and_size = df.iloc[row][1],
-                surface_elevation = df.iloc[row][2],
-                project_id = str(active)
-                )
+            if not row == 0 :
+                _, created = Structures.objects.get_or_create(
+                    structure_id = df.iloc[row][0],
+                    type_and_size = df.iloc[row][1],
+                    surface_elevation = df.iloc[row][2],
+                    project_id = str(active)
+                    )
     finally:
         return render(request, "index1.html")
 
