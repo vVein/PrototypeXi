@@ -28,7 +28,8 @@ global active_project
 def index1(request):
     structures = Structures.objects.all()
     projects = Project.objects.all()
-    return render(request, 'index1.html',{"structures" : structures, "projects" : projects}  )
+    pipes = Pipes.objects.all()
+    return render(request, 'index1.html',{"structures" : structures, "pipes" : pipes, "projects" : projects}  )
 
 @login_required(login_url = 'login_page')
 def developer(request):

@@ -221,17 +221,17 @@
                         </div>
 
 
-                        {% for structure in structures %}
+                        {% for pipe in pipes %}
                         <div class="centreGridInternalSubDepth2">
                             <div>
-                                {{structure.structure_id}}
+                                {{pipe.pipe_id}}
                             </div>
                             <div>
-                                {{structure.type_and_size}}
+                                {{pipe.upstream_invert}}
                             </div>
 
                             <div>
-                                {{structure.surface_elevation}}
+                                {{pipe.downstream_invert}}
                             </div>
                         </div>
                         {% endfor %}
