@@ -354,3 +354,18 @@ def register_user(request):
                 return redirect('login_page')
         output = {'form' : form }
         return render(request, 'register.html', output)
+
+def export_design(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Data-Export'] = 'attachement; filename="pipe_design.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['pipe_id', 'design_upstream_invert', 'design_downstream_invert'])
+
+    # Note: we convert the students query set to a values_list as the writerow expects a list/tuple       
+    data = Pipes.values_list('pipe_id', 'design_upstream_invert','design_downstream_invert')
+
+    for pipe in data:
+        writer.writerow(pipe)
+
+    return response
