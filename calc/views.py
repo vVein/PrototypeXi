@@ -50,6 +50,7 @@ def select_project(request):
         active = request.POST.get('select-project')
         active_project = active
         request.session['active_project'] = active_project
+        return redirect('index1')
     return render(request, 'index1.html', {'active_project' : active_project} )
 
 @login_required(login_url = 'login_page')
