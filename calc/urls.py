@@ -1,6 +1,8 @@
 from django.urls import path
-
 from . import views
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.index1, name = 'index1'),
@@ -16,4 +18,4 @@ urlpatterns = [
     path("register/", views.register_user, name = 'register'),
     path("logout/", views.logout_user, name = 'logout'),
     path("export/", views.export_design, name='export_design')
-    ]
+    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
