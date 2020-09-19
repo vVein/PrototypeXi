@@ -89,6 +89,13 @@
             column-gap: 30px;
         }
 
+        .centreGridInternalSub3 {
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-content: center;
+            align-items: center;
+        }
+
         a {
             color:inherit;
             text-decoration: none;
@@ -192,16 +199,19 @@
             </div>
             <div class="centreGrid">
                 <div class="centreGridInternal">
-                    <div class="centreGridInternalSub">
+                    <div class="centreGridInternalSub3">
+
+                        <div>
+                            ACTIVE PROJECT : {{ request.session.active_project }}
+                        </div>
+                        
                         <div>
                         <h1>
                             <a href = "/order/"> ORDER PROJECT AND
                             GENERATE SYSTEMS </a>
                         </h1>
                         </div>
-                        <div>
-                            ACTIVE PROJECT : {{ request.session.active_project }}
-                        </div>
+
                     </div>
                 </div>
                 <div class="centreGridInternal">
