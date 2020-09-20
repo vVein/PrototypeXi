@@ -34,6 +34,7 @@ class Pipes (models.Model):
     order = models.IntegerField(default = "0")
     design_upstream_invert = models.DecimalField(max_digits=15, decimal_places=3, blank=True, null=True)
     design_downstream_invert = models.DecimalField(max_digits=15, decimal_places=3, blank=True, null=True)
+    design_gradient = models.DecimalField(max_digits=10, decimal_places=3, default = 0.01)
 
     def __str__(self):
         return self.pipe_id
