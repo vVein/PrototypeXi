@@ -30,7 +30,7 @@ def index1(request):
     active_project = str(active_project_0)
     structures = Structures.objects.all().filter( project_id = active_project)
     projects = Project.objects.all()
-    pipes = Pipes.objects.all().filter( project_id = active_project).order_by('pipe_id')
+    pipes = Pipes.objects.all().filter( project_id = active_project).order_by('system','order','pipe_id')
     return render(request, 'index1.html',{"structures" : structures, "pipes" : pipes, "projects" : projects}  )
 
 @login_required(login_url = 'login_page')
