@@ -86,7 +86,7 @@ def upload_template_file(request):
 @login_required(login_url = 'login_page')
 def upload_structures_file(request):
     if request.method == 'GET':
-        return render(request, "index1.html")
+        return redirect('index1')
     try:
         csv_file = request.FILES["csv_file"]
         df = pd.read_csv(csv_file, sep=',', skipinitialspace=True,header=0)
@@ -102,12 +102,12 @@ def upload_structures_file(request):
                 project_id = str(active)
                 )
     finally:
-        return render(request, "index1.html")
+        return redirect('index1')
 
 @login_required(login_url = 'login_page')
 def upload_pipes_file(request):
     if request.method == 'GET':
-        return render(request, "index1.html")
+        return redirect('index1')
     try:
         csv_file = request.FILES["csv_file"]
         df = pd.read_csv(csv_file, sep = ',', skipinitialspace=True)
@@ -130,7 +130,7 @@ def upload_pipes_file(request):
             )
     finally:
         print("upload_pipes_file method 5 ")
-        return render(request, "index1.html")
+        return redirect('index1')
 
 global sys_lib
 global chkd
@@ -139,7 +139,9 @@ global sys_lib
 @login_required(login_url = 'login_page')
 def order_pipes_create_systems(request):
     
-    all_pipe_entries = Pipes.objects.all()
+    active_project_0 = request.session['active_project']
+    active_project = str(active_project_0)
+    all_pipe_entries = Pipes.objects.all().filter( project_id = active_project)
     df = read_frame(all_pipe_entries)
     df[:]['order'] = 0
     
@@ -192,11 +194,11 @@ def order_pipes_create_systems(request):
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
         print(df)
 
-    all_pipe_entries = Pipes.objects.all()
+    all_pipe_entries = Pipes.objects.all().filter( project_id = active_project)
     df = read_frame(all_pipe_entries)
     df.sort_values(['system', 'order'], ascending=[True, True], inplace=True)
     #df.to_csv(r"C:\Users\Stude\OneDrive\Documents\Python Scripts\Geopak Import\Test_Output\Network_Order.csv")
-    return render(request, "index1.html")
+    return redirect('index1')
 
 def retrieve_unchecked_entry(sys, chkl):
     Range = len(sys)
@@ -258,8 +260,10 @@ def analyse_systems(request):
         'minimum_depth_72_inch','minimum_depth_78_inch','minimum_depth_72_inch']}
     pipe_switcher = pd.DataFrame(data)
     pipe_switcher['pipe_size'] = pipe_switcher['pipe_size'].astype(str)
-    all_pipe_entries = Pipes.objects.all()
-    all_structure_entries = Structures.objects.all()
+    active_project_0 = request.session['active_project']
+    active_project = str(active_project_0)
+    all_pipe_entries = Pipes.objects.all().filter(project_id = active_project)
+    all_structure_entries = Structures.objects.all().filter(project_id = active_project)
     all_template_entries = Generic_Structures.objects.all()
     df = read_frame(all_pipe_entries)
     dfs = read_frame(all_structure_entries)
@@ -320,7 +324,7 @@ def analyse_systems(request):
             Pipes.objects.filter(pipe_id = pipe_id).update( design_downstream_invert = downstream_invert )
             df_sys.loc[df_sys['pipe_id'] == pipe_id, 'design_downstream_invert'] = downstream_invert
 
-    return render(request, "index1.html")
+    return redirect('index1')
 
 def login_page(request):
     if request.user.is_authenticated:
