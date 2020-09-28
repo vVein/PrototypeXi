@@ -19,5 +19,5 @@ urlpatterns = [
     path("logout/", views.logout_user, name = 'logout'),
     path("export/", views.export_design, name='export_design'),
     path("pipes/", views.pipes_list, name='pipes_list'),
-    path('pipes/<int:pk>/', views.pipes_detail),
+    path('pipe/<int:pk>/', views.pipe_detail),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
