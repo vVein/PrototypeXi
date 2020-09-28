@@ -222,6 +222,14 @@
                     <div class="centreGridInternalSub">
                         REVIEW PIPES FOR CUSTOMIZATION
 
+                        <div>
+                        <form method="post">
+                        {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="Update">
+                        </form>
+                        </div>
+
                         <div class="centreGridInternalSubDepth2">
                             <div>
                                 Pipe ID
