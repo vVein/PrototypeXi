@@ -22,9 +22,11 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from rest_framework import viewsets
 from rest_framework import permissions
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .serializers import PipesSerializer
-from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
+
 
 # Create your views here.
 
@@ -376,43 +378,43 @@ def export_design(request):
     df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
     return response
 
-def pipes_list(request):
+@api_view(['GET', 'POST'])
+def pipes_list(request, format=None):
     active_project_0 = request.session['active_project']
     active_project = str(active_project_0)
     if request.method == 'GET':
         pipes = Pipes.objects.all().filter( project_id = active_project)
         serializer = PipesSerializer(pipes, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = PipesSerializer(data=data)
+        serializer = PipesSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def pipe_detail(request, pk):
+@api_view(['GET', 'PUT', 'DELETE'])
+def pipe_detail(request, pk, format=None):
     """
     Retrieve, update or delete.
     """
     try:
         pipe = Pipes.objects.get(pk=pk)
     except Pipes.DoesNotExist:
-        return HttpResponse(status=404)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = PipesSerializer(pipe)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = PipesSerializer(pipe, data=data)
+        serializer = PipesSerializer(pipe, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         pipe.delete()
-        return HttpResponse(status=204)
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)

@@ -4,6 +4,8 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework.urlpatterns import format_suffix_patterns
+
 urlpatterns = [
     path("", views.index1, name = 'index1'),
     path("upload_structures/", views.upload_structures_file, name = 'upload_structures_file'),
@@ -21,3 +23,5 @@ urlpatterns = [
     path("pipes/", views.pipes_list, name='pipes_list'),
     path('pipe/<int:pk>/', views.pipe_detail),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns = format_suffix_patterns(urlpatterns)
