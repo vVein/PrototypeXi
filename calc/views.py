@@ -35,9 +35,8 @@ global active_project
 
 @login_required(login_url = 'login_page')
 def index1(request):
-    if request.session['active_project'] is None:
-        active_project = None
-        request.session['active_project'] = active_project
+
+    request.session['active_project'] = active_project
 
     active_project_0 = request.session['active_project']
     active_project = str(active_project_0)
