@@ -20,8 +20,8 @@ urlpatterns = [
     path("register/", views.register_user, name = 'register'),
     path("logout/", views.logout_user, name = 'logout'),
     path("export/", views.export_design, name='export_design'),
-    path("pipes/", views.pipes_list, name='pipes_list'),
-    path('pipe/<int:pk>/', views.pipe_detail),
+    path("pipes/", views.pipes_list.as_view(), name='pipes_list'),
+    path('pipe/<int:pk>/', views.pipe_detail.as_view()),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
