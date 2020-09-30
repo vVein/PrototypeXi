@@ -20,13 +20,9 @@ from .forms import CreateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
-from rest_framework import viewsets
-from rest_framework import permissions
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from .serializers import PipesSerializer
-from django.http import Http404
+
+from rest_framework import generics
 
 
 # Create your views here.
@@ -35,10 +31,6 @@ global active_project
 
 @login_required(login_url = 'login_page')
 def index1(request):
-
-    ''' if not request.session.session_key:
-        request.session.save()
-    session_id = request.session.session_key '''
 
     if 'active_project' not in request.session:
         request.session['active_project'] = None
@@ -387,48 +379,12 @@ def export_design(request):
     df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
     return response
 
-class PipesList(APIView):
-    """
-    List all snippets, or create a new modelobject.
-    """
-    #active_project_0 = request.session['active_project']
-    #active_project = str(active_project_0)
-    def get(self, request, format=None):
-        pipes = Pipes.objects.all() #.filter( project_id = active_project)
-        serializer = PipesSerializer(pipes, many=True)
-        return Response(serializer.data)
+class PipesList(generics.ListCreateAPIView):
+    queryset = Pipes.objects.all()
+    serializer_class = PipesSerializer
 
-    def post(self, request, format=None):
-        serializer = PipesSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class PipeDetail(APIView):
-    """
-    Retrieve, update or delete an instance.
-    """
-    def get_object(self, pk):
-        try:
-            return Pipes.objects.get(pk=pk)
-        except Pipes.DoesNotExist:
-            raise Http404
+class PipeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Pipes.objects.all()
+    serializer_class = PipesSerializer
 
-    def get(self, request, pk, format=None):
-        pipe = self.get_object(pk)
-        serializer = PipesSerializer(pipe)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        pipe = self.get_object(pk)
-        serializer = PipesSerializer(pipe, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        pipe = self.get_object(pk)
-        pipe.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
