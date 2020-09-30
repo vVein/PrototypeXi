@@ -36,9 +36,9 @@ global active_project
 @login_required(login_url = 'login_page')
 def index1(request):
 
-    if not request.session.session_key:
+    ''' if not request.session.session_key:
         request.session.save()
-    session_id = request.session.session_key
+    session_id = request.session.session_key '''
 
     if 'active_project' not in request.session:
         request.session['active_project'] = None
