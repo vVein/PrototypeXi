@@ -20,8 +20,18 @@ urlpatterns = [
     path("register/", views.register_user, name = 'register'),
     path("logout/", views.logout_user, name = 'logout'),
     path("export/", views.export_design, name='export_design'),
-    path("pipes/", views.PipesList.as_view(), name='pipes_list'),
-    path('pipe/<int:pk>/', views.PipeDetail.as_view()),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+# API endpoints
+urlpatterns = format_suffix_patterns([
+    path('', views.api_root),
+    path('pipes/',
+        views.PipesList.as_view(),
+        name='pipes_list'),
+    path('pipe/<int:pk>/',
+        views.PipeDetail.as_view(),
+        name='pipe-detail'),
+    path('pipes/<int:pk>/highlight/',
+        views.PipeHighlight.as_view(),
+        name='pipe-highlight'),
+])

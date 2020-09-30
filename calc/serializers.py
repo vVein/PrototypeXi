@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from .models import Pipes
 
-class PipesSerializer(serializers.ModelSerializer):
+class PipesSerializer(serializers.HyperlinkedModelSerializer):
+
+    highlight = serializers.HyperlinkedIdentityField(view_name='pipe-highlight', format='html')
+
     class Meta:
         model = Pipes
         fields = ['pipe_id','upstream_node','downstream_node','pipe_size','pipe_length','discharge','upstream_invert',
