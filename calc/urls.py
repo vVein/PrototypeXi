@@ -24,7 +24,7 @@ urlpatterns = [
 
 # API endpoints
 urlpatterns = format_suffix_patterns([
-    path('', views.api_root),
+    path('api/', views.api_root),
     path('pipes/',
         views.PipesList.as_view(),
         name='pipes_list'),
