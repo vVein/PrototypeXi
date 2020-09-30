@@ -40,6 +40,9 @@ def index1(request):
         request.session.save()
     session_id = request.session.session_key
 
+    if 'cart' not in request.session:
+        request.session['active_project'] = None
+
     active_project_0 = request.session['active_project']
     active_project = str(active_project_0)
     structures = Structures.objects.all().filter( project_id = active_project)
