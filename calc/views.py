@@ -31,13 +31,14 @@ from django.http import Http404
 
 # Create your views here.
 
-active_project = None
+global active_project
 
 @login_required(login_url = 'login_page')
 def index1(request):
-    active_project = active_project
-    if active_project == None:
-        request.session['active_project'] = None
+
+    if not request.session.session_key:
+        request.session.save()
+    session_id = request.session.session_key
 
     active_project_0 = request.session['active_project']
     active_project = str(active_project_0)
