@@ -22,7 +22,6 @@ urlpatterns = [
     path("export/", views.export_design, name='export_design'),
     path("pipes/", views.PipesList.as_view(), name='pipes_list'),
     path('pipe/<int:pk>/', views.PipeDetail.as_view()),
-    path('api/', views.api_root),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
