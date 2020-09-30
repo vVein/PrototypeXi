@@ -40,7 +40,7 @@ def index1(request):
         request.session.save()
     session_id = request.session.session_key
 
-    if 'cart' not in request.session:
+    if 'active_project' not in request.session:
         request.session['active_project'] = None
 
     active_project_0 = request.session['active_project']
