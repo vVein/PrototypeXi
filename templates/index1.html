@@ -275,35 +275,35 @@
 
                             function buildList(){
 
-                            const ul = document.getElementById('pipes'); // Get the list where we will place our pipes
-                            const url = 'https://prototype-xi.herokuapp.com/pipes/'; // Get pipes
+                                const ul = document.getElementById('pipes'); // Get the list where we will place our pipes
+                                const url = 'https://prototype-xi.herokuapp.com/pipes/'; // Get pipes
 
-                            fetch(url)
-                                .then(response => {
-                                    return response.json()
-                                })
-                                .then(data => {
-                                    // Work with JSON data here
-                                    console.log(data)
+                                fetch(url)
+                                    .then(response => {
+                                        return response.json()
+                                    })
+                                    .then(data => {
+                                        // Work with JSON data here
+                                        console.log(data)
 
-                                    let list = data;
-                                    let pipeDataOut;
+                                        let list = data;
+                                        let pipeDataOut;
+                                        
+                                        for (var i = 0; i < list.length; i++){
+
+                                            let new_row = list[i];
+                                            pipeDataOut = pipeDataOut.append("<tr>")
+                                            pipeDataOut = pipeDataOut.append(new_row)
+                                            pipeDataOut = pipeDataOut.append("</tr>")
+                                        
+                                        }
+
                                     
-                                    for (var i = 0; i < list.length; i++){
-
-                                        let new_row = list[i];
-                                        pipeDataOut = pipeDataOut.append("<tr>")
-                                        pipeDataOut = pipeDataOut.append(new_row)
-                                        pipeDataOut = pipeDataOut.append("</tr>")
-                                    
-                                    }
-
-                                
-                                document.getElementById("pipeTable").innerHTML = pipeDataOut;
-                                )
-                                .catch(err => {
-                                    // Do something for an error here
-                                })
+                                    document.getElementById("pipeTable").innerHTML = pipeDataOut;
+                                    })
+                                    .catch(err => {
+                                        // Do something for an error here
+                                    })
                             
                             }
 
