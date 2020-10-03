@@ -290,25 +290,25 @@
                                     .then(data => {
                                         // Work with JSON data here
                                         console.log(data)
-
-                                        let list = data;
-                                        let pipeDataOut;
+                                        buildPipeList(data)
                                         
-                                        for (var i = 0; i < list.length; i++){
-
-                                            let new_row = list[i];
-                                            pipeDataOut = pipeDataOut.append("<tr>")
-                                            pipeDataOut = pipeDataOut.append(new_row)
-                                            pipeDataOut = pipeDataOut.append("</tr>")
-                                        
-                                        }
-                                        console.log(pipeDataOut)                                   
-                                        document.getElementById("pipeTable").innerHTML = pipeDataOut;
                                     })
                                     .catch(err => {
                                         // Do something for an error here
                                     })
                             
+                            }
+
+                            function buildPipeList(data){
+                                let table = document.getElementById('pipe_table');
+                                    for (var i = 0; i < data.length; i++){
+
+                                        let new_row = `<tr>
+                                                    <td>${data[i].pipe_id}</td>
+                                                    <td>${data[i].designGradient}</td>
+                                                    </tr>`
+                                        table.innerHTML += row
+                                    }   
                             }
 
                         </script>
@@ -317,7 +317,12 @@
 
                             <br><br> 
       
-                            <table align = "center" id="pipeTable" border="1"> 
+                            <table> 
+                                <tr>
+                                    <th>Header1</th>
+                                </tr>
+                                <tbody id="pipe_table">
+                                </tbody>
                             </table> 
 
                             <div class="pipeGradientBox">
