@@ -302,9 +302,8 @@
                                             pipeDataOut = pipeDataOut.append("</tr>")
                                         
                                         }
-
-                                    
-                                    document.getElementById("pipeTable").innerHTML = pipeDataOut;
+                                        console.log(pipeDataOut)                                   
+                                        document.getElementById("pipeTable").innerHTML = pipeDataOut;
                                     })
                                     .catch(err => {
                                         // Do something for an error here
