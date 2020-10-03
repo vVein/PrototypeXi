@@ -120,7 +120,7 @@ def upload_pipes_file(request):
     if request.method == 'GET':
         return redirect('index1')
     try:
-        csv_file = request.FILES["csv_file"]
+        csv_file = request.FILES["csv_file_p"]
         df = pd.read_csv(csv_file, sep = ',', skipinitialspace=True)
         df = df.dropna(how='all', axis='columns')
         df[['Link - Upstream Node']] = df[['Link - Upstream Node']].apply(pd.to_numeric, errors='coerce').fillna(df)
