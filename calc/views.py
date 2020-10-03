@@ -387,3 +387,4 @@ class PipesList(generics.ListCreateAPIView):
 class PipeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pipes.objects.all()
     serializer_class = PipesSerializer
+
