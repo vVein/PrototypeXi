@@ -285,7 +285,22 @@
                                 .then(data => {
                                     // Work with JSON data here
                                     console.log(data)
-                                })
+
+                                    let list = data;
+                                    let pipeDataOut;
+                                    
+                                    for (var i = 0; i < list.length; i++){
+
+                                        let new_row = list[i];
+                                        pipeDataOut = pipeDataOut.append("<tr>")
+                                        pipeDataOut = pipeDataOut.append(new_row)
+                                        pipeDataOut = pipeDataOut.append("</tr>")
+                                    
+                                    }
+
+                                
+                                document.getElementById("pipeTable").innerHTML = pipeDataOut;
+                                )
                                 .catch(err => {
                                     // Do something for an error here
                                 })
@@ -295,6 +310,11 @@
                         </script>
 
                         <div class="updatePipeContainer">
+
+                            <br><br> 
+      
+                            <table align = "center" id="pipeTable" border="1"> 
+                            </table> 
 
                             <div class="pipeGradientBox">
                                 <p class="newDesignGradient"></p>
