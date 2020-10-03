@@ -4,4 +4,4 @@ from .models import Pipes
 class PipesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pipes
-        fields = ['__all__']
+        fields = '__all__'

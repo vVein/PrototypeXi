@@ -294,12 +294,6 @@
 
                         </script>
 
-                        <script>
-
-                        let gradientField = document.querySelector('.gradientField');
-                        const updateGradient = document.querySelector('.updateGradient');
-                        let designGradient = document.querySelector('.designGradient');
-
                         <div class="updatePipeContainer">
 
                             <div class="pipeGradientBox">
@@ -311,7 +305,13 @@
                         <input type="submit" value="Update Gradient" class="updateGradient" >
                         
                         </div>
-                        
+
+                        <script>
+
+                        let gradientField = document.querySelector('.gradientField');
+                        const updateGradient = document.querySelector('.updateGradient');
+                        let designGradient = document.querySelector('.designGradient');
+                      
                         updateGradient.addEventListener('click', updatePipeGradient);
 
                         function updatePipeGradient() {
