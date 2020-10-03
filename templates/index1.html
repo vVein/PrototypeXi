@@ -222,14 +222,6 @@
                     <div class="centreGridInternalSub">
                         REVIEW PIPES FOR CUSTOMIZATION
 
-                        <div>
-                        <form method="post">
-                        {% csrf_token %}
-                            {{ form.as_p }}
-                            <input type="submit" value="Update">
-                        </form>
-                        </div>
-
                         <div class="centreGridInternalSubDepth2">
                             <div>
                                 Pipe ID
@@ -256,8 +248,38 @@
                             <div>
                                 {{pipe.design_downstream_invert}}
                             </div>
+                        
                         </div>
                         {% endfor %}
+
+                        <script>
+
+                        let gradientField = document.querySelector('.gradientField');
+                        const updateGradient = document.querySelector('.updateGradient');
+                        updateGradient += "{% csrf_token %}";
+                        let designGradient = document.querySelector('.designGradient');
+
+                        <div class="updatePipeContainer">
+
+                            <div class="pipeGradientBox">
+                                <p class="newDesignGradient"></p>
+                                <p class="oldDesignGradient"></p>
+                            </div>
+
+                        <label for="gradientField">Pipe Gradient: </label><input type="number" id="gradientField" class="gradientField">
+                        <input type="submit" value="Update Gradient" class="updateGradient" >
+                        
+                        </div>
+                        
+                        updateGradient.addEventListener('click', updatePipeGradient);
+
+                        function updatePipeGradient() {
+                            let new_gradient = Double(gradientField.value);
+                            }
+
+                        </script>
+
+
                     </div>
                 </div>
                 <div class="centreGridInternal">
