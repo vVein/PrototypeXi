@@ -235,9 +235,8 @@
                             </div>
                         </div>
 
-                        <div>
-                            <table id="pipeTable"> 
-                            </table> 
+                        <div id="pipeTable">
+
                         </div>
 
 
@@ -295,12 +294,12 @@
 
                             function buildPipeList(data){
                                 let table = document.getElementById('pipe_table');
-
                                 
                                     for (var i = 0; i < data.length; i++){
+                                        let dg = JSON.stringify(data[i].design_gradient)
                                         let row = `<tr>
                                                     <td>${data[i].pipe_id}</td>
-                                                    <td>${data[i].design_gradient}</td>
+                                                    <td>${dg}</td>
                                                     </tr>`
                                         table.innerHTML += row;
                                     }   
