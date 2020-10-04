@@ -295,11 +295,12 @@
 
                             function buildPipeList(data){
                                 let table = document.getElementById('pipe_table');
-                                    for (var i = 0; i < data.length; i++){
 
+                                
+                                    for (var i = 0; i < data.length; i++){
                                         let row = `<tr>
                                                     <td>${data[i].pipe_id}</td>
-                                                    <td>${data[i].designGradient}</td>
+                                                    <td>${data[i].design_gradient}</td>
                                                     </tr>`
                                         table.innerHTML += row;
                                     }   
