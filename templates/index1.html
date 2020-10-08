@@ -265,14 +265,16 @@
                             <div>
                                 {{pipe.design_downstream_invert}}
                             </div>
-
+                            <form action="{% url 'pipe/' pk=pipe.pk %}" method="POST">
+                            {% csrf_token %}
                             <div>
-                                <input id="gradient" type="number" value= "{{pipe.design_gradient}}" class="gradientfield" />
+                                <input id="gradient_{{pipe.pipe_id}}" type="number" value= "{{pipe.design_gradient}}" class="gradientfield" />
                             </div>
 
                             <div>
-                                <button class="gradient update button" type="button"> UPDATE </button>
+                                <button class="gradient update button {{pipe.pipe_id}}" type="button"> UPDATE </button>
                             </div>
+                            </form>
                         
                         </div>
                         {% endfor %}
@@ -304,7 +306,7 @@
                                 const url = 'https://prototype-xi.herokuapp.com/pipes/'; // Get pipes
 
                                 fetch(url)
-                                    .then((resp) => resp.json())
+                                    .then((response) => response.json())
                                     .then( 
                                         function (data) {
                                             console.log(data);
@@ -325,6 +327,36 @@
                                         table.innerHTML += row;
                                     }   
                             }
+
+                            function updateGradient(pipe_id){
+                                let input = document.getElementById('gradient_'+pipe_id.toString()).value;
+                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_id.toString());
+
+                                const data = { gradientfield: input };
+
+                                fetch(pipe_url, {
+                                method: 'PATCH', 
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(data),
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                console.log('Success:', data);
+                                })
+                                .catch((error) => {
+                                console.error('Error:', error);
+                                });
+
+                            }
+
+                            // Add event listener
+                            // outside is id of element
+                            let singleId = 12;
+                            const el = document.getElementById("gradient update button" + singleId.toString());
+                            //12 == pipe_id
+                            el.addEventListener("click", function(){updateGradient(12)}, false);
 
                         </script>
 
