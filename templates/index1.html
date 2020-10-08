@@ -329,7 +329,7 @@
 
                             function updateGradient(pipe_pk){
                                 let input = document.getElementById('gradient_'+pipe_pk.toString()).value;
-                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString());
+                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
                                 const data = { design_gradient: input };
 
