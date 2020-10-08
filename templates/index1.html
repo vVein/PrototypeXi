@@ -271,7 +271,7 @@
                             </div>
 
                             <div>
-                                <button class="gradient update button {{pipe.pk}}" type="button"> UPDATE </button>
+                                <button id="gradient_update_button_{{pipe.pk}}" type="button"> UPDATE </button>
                             </div>
 
                         
@@ -353,7 +353,7 @@
                             // Add event listener
                             // outside is id of element
                             let singlePk = 12;
-                            const el = document.getElementById("gradient update button " + singlePk.toString());
+                            const el = document.getElementById("gradient_update_button_" + singlePk.toString());
                             el.addEventListener("click", function(){updateGradient(singlePk)}, false);
 
                         </script>
