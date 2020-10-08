@@ -265,14 +265,14 @@
                             <div>
                                 {{pipe.design_downstream_invert}}
                             </div>
-                            <form action="{% url 'pipe/' pk=pipe.pk %}" method="POST">
+                            <form action="" method="POST">
                             {% csrf_token %}
                             <div>
-                                <input id="gradient_{{pipe.pipe_id}}" type="number" value= "{{pipe.design_gradient}}" class="gradientfield" />
+                                <input id="gradient_{{pipe.pk}}" type="number" value= "{{pipe.design_gradient}}" class="gradientfield" />
                             </div>
 
                             <div>
-                                <button class="gradient update button {{pipe.pipe_id}}" type="button"> UPDATE </button>
+                                <button class="gradient update button {{pipe.pk}}" type="button"> UPDATE </button>
                             </div>
                             </form>
                         
@@ -328,9 +328,9 @@
                                     }   
                             }
 
-                            function updateGradient(pipe_id){
-                                let input = document.getElementById('gradient_'+pipe_id.toString()).value;
-                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_id.toString());
+                            function updateGradient(pipe_pk){
+                                let input = document.getElementById('gradient_'+pipe_pk.toString()).value;
+                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString());
 
                                 const data = { gradientfield: input };
 
@@ -353,10 +353,9 @@
 
                             // Add event listener
                             // outside is id of element
-                            let singleId = 12;
-                            const el = document.getElementById("gradient update button " + singleId.toString());
-                            //12 == pipe_id
-                            el.addEventListener("click", function(){updateGradient(12)}, false);
+                            let singlePk = 12;
+                            const el = document.getElementById("gradient update button " + singlePk.toString());
+                            el.addEventListener("click", function(){updateGradient(singlePk)}, false);
 
                         </script>
 
