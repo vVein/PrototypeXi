@@ -371,12 +371,12 @@
                             // outside is id of element
 
                             function addGradientListeners(pipe_list){
-                            let el;
+                                let elArray = new Array;
                                 for (singlePipe of pipe_list) {
-                                let singlePk = singlePipe.id;
-                                console.log(singlePk);
-                                el[singlePk] = document.getElementById("gradient_update_button_" + singlePk.toString());
-                                el[singlePk].addEventListener("click", function(){updateGradient(singlePk)}, false);
+                                    let singlePk = singlePipe.id;
+                                    console.log(singlePk);
+                                    el[singlePk] = document.getElementById("gradient_update_button_" + singlePk.toString());
+                                    el[singlePk].addEventListener("click", function(){updateGradient(singlePk)}, false);
                                 }
                             }
 
