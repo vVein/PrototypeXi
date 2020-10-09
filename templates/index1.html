@@ -376,7 +376,7 @@
                                 let singlePk = singlePipe.id;
                                 console.log(singlePk);
                                 const el[i] = document.getElementById("gradient_update_button_" + singlePk.toString());
-                                el.addEventListener("click", function(){updateGradient(singlePk)}, false);
+                                el[i].addEventListener("click", function(){updateGradient(singlePk)}, false);
                                 i++;
                                 }
                             }
