@@ -371,12 +371,13 @@
                             // outside is id of element
 
                             function addGradientListeners(pipe_list){
-
-                                const iterator = pipe_list.pk;
-                                for (const singlePk of iterator) {
+                            let i=0
+                                for (singlePipe of pipe_list) {
+                                let singlePk = singlePipe.id;
                                 console.log(singlePk);
-                                const el = document.getElementById("gradient_update_button_" + singlePk.toString());
+                                const el[i] = document.getElementById("gradient_update_button_" + singlePk.toString());
                                 el.addEventListener("click", function(){updateGradient(singlePk)}, false);
+                                i++;
                                 }
                             }
 
