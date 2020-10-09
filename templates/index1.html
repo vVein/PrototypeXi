@@ -372,10 +372,11 @@
 
                             function addGradientListeners(pipe_list){
                             let i=0
+                            let el;
                                 for (singlePipe of pipe_list) {
                                 let singlePk = singlePipe.id;
                                 console.log(singlePk);
-                                const el[i] = document.getElementById("gradient_update_button_" + singlePk.toString());
+                                el[i] = document.getElementById("gradient_update_button_" + singlePk.toString());
                                 el[i].addEventListener("click", function(){updateGradient(singlePk)}, false);
                                 i++;
                                 }
