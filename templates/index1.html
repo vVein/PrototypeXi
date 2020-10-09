@@ -297,7 +297,7 @@
                             }
                             const csrftoken = getCookie('csrftoken');
 
-                            buildList();
+                            buildPkList();
 
                             function buildList(){
 
@@ -310,6 +310,21 @@
                                         function (data) {
                                             console.log(data);
                                             buildPipeList(data);                                     
+                                        }
+                                    )                           
+                            }
+
+                            function buildPkList(){
+
+                                const ul = document.getElementById('pipes'); // Get the list where we will place our pipes
+                                const url = 'https://prototype-xi.herokuapp.com/pipes/'; // Get pipes
+
+                                fetch(url)
+                                    .then((response) => response.json())
+                                    .then( 
+                                        function (data) {
+                                            console.log(data);
+                                            addGradientListeners(data);                                     
                                         }
                                     )                           
                             }
@@ -338,12 +353,13 @@
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'X-CSRFToken' : csrftoken,
+
                                 },
                                 body: JSON.stringify(data),
                                 })
                                 .then(response => response.json())
                                 .then(data => {
-                                console.log('Success:', data);
+                                console.log('Success gradient updated:', data);
                                 })
                                 .catch((error) => {
                                 console.error('Error:', error);
@@ -353,9 +369,16 @@
 
                             // Add event listener
                             // outside is id of element
-                            let singlePk = 312;
-                            const el = document.getElementById("gradient_update_button_" + singlePk.toString());
-                            el.addEventListener("click", function(){updateGradient(singlePk)}, false);
+
+                            function addGradientListeners(pipe_list){
+
+                                const iterator = pipe_list.primaryKeys();
+                                for (const singlePk of iterator) {
+                                console.log(singlePk);
+                                const el = document.getElementById("gradient_update_button_" + singlePk.toString());
+                                el.addEventListener("click", function(){updateGradient(singlePk)}, false);
+                                }
+                            }
 
                         </script>
 
@@ -365,7 +388,7 @@
       
                             <table> 
                                 <tr>
-                                    <th>Header1</th>
+                                    <th>JS TABLE</th>
                                 </tr>
                                 <tbody id="pipe_table">
                                 </tbody>
@@ -382,7 +405,7 @@
                 </div>
 
                 <div class="centreGridInternal">
-                    <a href="/export/"> Export Data </a>
+                    <a href="/export/"> EXPORT DATA </a>
                 </div>
             </div>
         </div>
