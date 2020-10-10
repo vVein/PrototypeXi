@@ -421,7 +421,7 @@
                                     el[singlePk] = document.getElementById("gradient_update_button_" + singlePk.toString());
                                     el[singlePk].addEventListener("click", function(){updateGradient(singlePk)}, false);
                                     elD[singlePk] = document.getElementById("upstreamDropInlet_" + singlePk.toString());
-                                    elD[singlePk].addEventListener("click", function(){updateDropStructure(singlePipe)}, false);
+                                    elD[singlePk].addEventListener('change', function(){updateDropStructure(singlePipe)}, false);
                                 }
                             }
 
