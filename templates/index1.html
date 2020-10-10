@@ -267,6 +267,13 @@
                             </div>
 
                             <div>
+                                <input type="checkbox" id="upstreamDropInlet" name="upstreamDropInlet" 
+                                {% if pipe.upstream_structure_drop_structure %}
+                                    checked
+                                {% endif %}>
+                            </div>
+
+                            <div>
                                 <input id="gradient_{{pipe.pk}}" type="number" value= "{{pipe.design_gradient}}" class="gradientfield" />
                             </div>
 
