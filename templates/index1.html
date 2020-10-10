@@ -335,7 +335,8 @@
                                     .then( 
                                         function (data) {
                                             console.log(data);
-                                            addListeners(data);                                     
+                                            addListenersGradient(data);
+                                            addListenersDrop(data);                                      
                                         }
                                     )                           
                             }
@@ -378,8 +379,7 @@
 
                             }
                             
-                            function updateDropStructure(singlePipe){
-                                let singlePk = singlePipe.id;
+                            function updateDropStructure(singlePipe, pipe_pk){
                                 let currentBoolean = singlePipe.upstream_structure_drop_structure;
                                 let nuBoolen;
                                 if (currentBoolean == true){
@@ -387,7 +387,7 @@
                                 } else if (currentBoolean == false){
                                     nuBoolen = true;
                                 }
-                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+singlePk.toString()+'/');
+                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
                                 const data = { upstream_structure_drop_structure: nuBoolen };
 
@@ -396,7 +396,6 @@
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'X-CSRFToken' : csrftoken,
-
                                 },
                                 body: JSON.stringify(data),
                                 })
@@ -412,16 +411,25 @@
                             // Add event listener
                             // outside is id of element .
 
-                            function addListeners(pipe_list){
+                            function addListenersGradient(pipe_list){
                                 let el = new Array;
-                                let elD = new Array;
                                 for (singlePipe of pipe_list) {
                                     let singlePk = singlePipe.id;
                                     console.log(singlePk);
                                     el[singlePk] = document.getElementById("gradient_update_button_" + singlePk.toString());
                                     el[singlePk].addEventListener("click", function(){updateGradient(singlePk)}, false);
+                                }
+                            }
+
+                            function addListenersDrop(pipe_list){
+                                let elD = new Array;
+                                for (singlePipe of pipe_list) {
+                                    this.singlePipe = singlePipe;
+                                    let singlePk = singlePipe.id;
+
+                                    console.log(singlePk);
                                     elD[singlePk] = document.getElementById("upstreamDropInlet_" + singlePk.toString());
-                                    elD[singlePk].addEventListener('change', function(){updateDropStructure(singlePipe)}, false);
+                                    elD[singlePk].addEventListener('change', function(){updateDropStructure(singlePipe, singlePk)}, false);
                                 }
                             }
 
