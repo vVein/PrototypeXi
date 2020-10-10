@@ -271,11 +271,12 @@
                             </div>
 
                             <div>
-                                <input type="checkbox" id="upstreamDropInlet" name="upstreamDropInlet" 
+                                <input type="checkbox" id="upstreamDropInlet_{{pipe.pk}}" name="upstreamDropInlet" 
                                 {% if pipe.upstream_structure_drop_structure %}
                                     checked
                                 {% endif %}>
                             </div>
+
 
                             <div>
                                 <input id="gradient_{{pipe.pk}}" type="number" value= "{{pipe.design_gradient}}" class="gradientfield" />
@@ -334,7 +335,7 @@
                                     .then( 
                                         function (data) {
                                             console.log(data);
-                                            addGradientListeners(data);                                     
+                                            addListeners(data);                                     
                                         }
                                     )                           
                             }
@@ -376,17 +377,51 @@
                                 });
 
                             }
+                            
+                            function updateDropStructure(singlePipe){
+                                let singlePk = singlePipe.id;
+                                let currentBoolean = singlePipe.upstream_structure_drop_structure;
+                                let nuBoolen;
+                                if (currentBoolean == true){
+                                    nuBoolen = false;
+                                } else if (currentBoolean == false){
+                                    nuBoolen = true;
+                                }
+                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+singlePk.toString()+'/');
 
+                                const data = { upstream_structure_drop_structure: nuBoolen };
+
+                                fetch(pipe_url, {
+                                method: 'PATCH', 
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken' : csrftoken,
+
+                                },
+                                body: JSON.stringify(data),
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                console.log('Success drop structure updated:', data);
+                                })
+                                .catch((error) => {
+                                console.error('Error:', error);
+                                });
+
+                            }
                             // Add event listener
                             // outside is id of element .
 
-                            function addGradientListeners(pipe_list){
+                            function addListeners(pipe_list){
                                 let el = new Array;
+                                let elD = new Array;
                                 for (singlePipe of pipe_list) {
                                     let singlePk = singlePipe.id;
                                     console.log(singlePk);
                                     el[singlePk] = document.getElementById("gradient_update_button_" + singlePk.toString());
                                     el[singlePk].addEventListener("click", function(){updateGradient(singlePk)}, false);
+                                    elD[singlePk] = document.getElementById("upstreamDropInlet_" + singlePk.toString());
+                                    elD[singlePk].addEventListener("click", function(){updateDropStructure(singlePipe)}, false);
                                 }
                             }
 
