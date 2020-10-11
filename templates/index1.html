@@ -403,10 +403,10 @@
                             function updateDropStructure(singlePipe, pipe_pk){
                                 let currentBoolean = singlePipe.upstream_structure_drop_structure;
                                 let nuBoolen;
-                                if (currentBoolean == true){
-                                    nuBoolen = false;
-                                } else if (currentBoolean == false){
-                                    nuBoolen = true;
+                                if (currentBoolean == "True"){
+                                    nuBoolen = "False";
+                                } else if (currentBoolean == "False"){
+                                    nuBoolen = "True";
                                 }
                                 const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
