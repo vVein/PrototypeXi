@@ -398,14 +398,13 @@
                                 });
                             }
                             
-                            function updateDropStructure(singlePipe, pipe_pk){
-                                let currentBoolean = singlePipe.upstream_structure_drop_structure.toString();
-                                console.log(currentBoolean);
+                            function updateDropStructure(dropBoolean, pipe_pk){
+                                console.log(dropBoolean);
                                 let nuBoolen = new Boolean(false);
-                                if (currentBoolean == "true"){
+                                if (dropBoolean == true){
                                     nuBoolen = false;
                                     console.log(nuBoolen);
-                                } else if (currentBoolean == "false"){
+                                } else if (dropBoolean == false){
                                     nuBoolen = true;
                                     console.log(nuBoolen);
                                 }
@@ -448,10 +447,11 @@
                                 for (singlePipe of pipe_list) {
                                     this.singlePipe = singlePipe;
                                     let singlePk = singlePipe.id;
+                                    let dropBoolean = new Boolean(singlePipe.upstream_structure_drop_structure);
 
                                     console.log(singlePk);
                                     elD[singlePk] = document.getElementById("upstreamDropInlet_" + singlePk.toString());
-                                    elD[singlePk].addEventListener('change', function(){updateDropStructure(singlePipe, singlePk)}, false);
+                                    elD[singlePk].addEventListener('change', function(){updateDropStructure(dropBoolean, singlePk)}, false);
                                 }
                             }
 
