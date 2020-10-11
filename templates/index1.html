@@ -345,17 +345,18 @@
                                     )                           
                             }
 
-                            function fetchPipe(pipe_pk){
+                            async function fetchPipe(pipe_pk){
                                 const pip_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
-                                fetch(pip_url)
-                                    .then((response) => response.json())
-                                    .then( 
-                                        function (data) {
-                                            console.log(data);
-                                            return(data);                                     
-                                        }
-                                    )                           
+                                let response = await fetch(pip_url)
+
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                  } else {
+                                    let data = await response.json();
+                                    console.log(pip);
+                                    return(data);   
+                                  }                     
                             }
 
                             function buildPkList(){
