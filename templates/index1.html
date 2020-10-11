@@ -386,7 +386,6 @@
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'X-CSRFToken' : csrftoken,
-
                                 },
                                 body: JSON.stringify(data),
                                 })
@@ -397,17 +396,18 @@
                                 .catch((error) => {
                                 console.error('Error:', error);
                                 });
-
                             }
                             
                             function updateDropStructure(singlePipe, pipe_pk){
-                                let currentBoolean = singlePipe.upstream_structure_drop_structure;
+                                let currentBoolean = singlePipe.upstream_structure_drop_structure.toString();
                                 console.log(currentBoolean);
-                                let nuBoolen;
-                                if (currentBoolean == "True"){
-                                    nuBoolen = "False";
-                                } else if (currentBoolean == "False"){
-                                    nuBoolen = "True";
+                                let nuBoolen = new Boolean(false);
+                                if (currentBoolean == "true"){
+                                    nuBoolen = false;
+                                    console.log(nuBoolen);
+                                } else if (currentBoolean == "false"){
+                                    nuBoolen = true;
+                                    console.log(nuBoolen);
                                 }
                                 const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
