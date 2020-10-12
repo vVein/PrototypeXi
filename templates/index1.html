@@ -465,7 +465,7 @@
 
                                     //console.log(singlePk);
                                     elD[singlePk] = document.getElementById("upstreamDropInlet_" + singlePk.toString());
-                                    elD[singlePk].addEventListener('change', function(){updateDropStructure(dropBoolean, singlePk)}, false);
+                                    elD[singlePk].addEventListener('change', function(){updateDropStructure(singlePk)}, false);
                                 }
                             }
 
