@@ -424,7 +424,7 @@
                                     }
                                     const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
-                                    const data = { upstream_structure_drop_structure: nuBoolen };
+                                    const dataO = { upstream_structure_drop_structure: nuBoolen };
 
                                     fetch(pipe_url, {
                                     method: 'PATCH', 
@@ -432,11 +432,11 @@
                                         'Content-Type': 'application/json',
                                         'X-CSRFToken' : csrftoken,
                                     },
-                                    body: JSON.stringify(data),
+                                    body: JSON.stringify(dataO),
                                     })
                                     .then(response => response.json())
-                                    .then(data => {
-                                    console.log('Success drop structure updated:', data);
+                                    .then(dataO => {
+                                    console.log('Success drop structure updated:', dataO);
                                     })
                                     .catch((error) => {
                                     console.error('Error:', error);
