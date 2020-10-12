@@ -348,15 +348,12 @@
                             async function fetchPipe(pipe_pk){
                                 const pip_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
-                                let response = await fetch(pip_url)
-
-                                if (!response.ok) {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                  } else {
-                                    let data = await response.json();
-                                    console.log(data);
-                                    return(data);   
-                                  }                     
+                                let response = await fetch(pip_url);
+                                
+                                let data = await response.json();
+                                console.log(data);
+                                return(data);   
+                   
                             }
 
                             function buildPkList(){
@@ -413,7 +410,7 @@
                             
                             function updateDropStructure(pipe_pk){
                                 this.pipe_pk = pipe_pk;
-                                let pipe = fetchPipe(pipe_pk);
+                                fetchPipe(pipe_pk).then(function (data) {let pipe = data;});
                                 let dropBoolean = new Boolean(pipe.upstream_structure_drop_structure);
                                 console.log('dropBoolean:', dropBoolean);
                                 let nuBoolen = new Boolean(false);
@@ -452,7 +449,7 @@
                                 let el = new Array;
                                 for (singlePipe of pipe_list) {
                                     let singlePk = singlePipe.id;
-                                    console.log(singlePk);
+                                    //console.log(singlePk);
                                     el[singlePk] = document.getElementById("gradient_update_button_" + singlePk.toString());
                                     el[singlePk].addEventListener("click", function(){updateGradient(singlePk)}, false);
                                 }
