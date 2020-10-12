@@ -410,37 +410,38 @@
                             
                             function updateDropStructure(pipe_pk){
                                 this.pipe_pk = pipe_pk;
-                                fetchPipe(pipe_pk).then(function (data) {let pipe = data;});
-                                let dropBoolean = new Boolean(pipe.upstream_structure_drop_structure);
-                                console.log('dropBoolean:', dropBoolean);
-                                let nuBoolen = new Boolean(false);
-                                if (dropBoolean == true){
-                                    nuBoolen = false;
-                                    console.log('nuBoolen:', nuBoolen);
-                                } else if (dropBoolean == false){
-                                    nuBoolen = true;
-                                    console.log('nuBoolen:', nuBoolen);
-                                }
-                                const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
+                                fetchPipe(pipe_pk).then(function (data) {
+                                    let pipe = data;
+                                    let dropBoolean = new Boolean(pipe.upstream_structure_drop_structure);
+                                    console.log('dropBoolean:', dropBoolean);
+                                    let nuBoolen = new Boolean(false);
+                                    if (dropBoolean == true){
+                                        nuBoolen = false;
+                                        console.log('nuBoolen:', nuBoolen);
+                                    } else if (dropBoolean == false){
+                                        nuBoolen = true;
+                                        console.log('nuBoolen:', nuBoolen);
+                                    }
+                                    const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
-                                const data = { upstream_structure_drop_structure: nuBoolen };
+                                    const data = { upstream_structure_drop_structure: nuBoolen };
 
-                                fetch(pipe_url, {
-                                method: 'PATCH', 
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRFToken' : csrftoken,
-                                },
-                                body: JSON.stringify(data),
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                console.log('Success drop structure updated:', data);
-                                })
-                                .catch((error) => {
-                                console.error('Error:', error);
+                                    fetch(pipe_url, {
+                                    method: 'PATCH', 
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRFToken' : csrftoken,
+                                    },
+                                    body: JSON.stringify(data),
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                    console.log('Success drop structure updated:', data);
+                                    })
+                                    .catch((error) => {
+                                    console.error('Error:', error);
+                                    });
                                 });
-
                             }
                             // Add event listener
                             // outside is id of element .
@@ -462,7 +463,7 @@
                                     let singlePk = singlePipe.id;
                                     let dropBoolean = new Boolean(singlePipe.upstream_structure_drop_structure);
 
-                                    console.log(singlePk);
+                                    //console.log(singlePk);
                                     elD[singlePk] = document.getElementById("upstreamDropInlet_" + singlePk.toString());
                                     elD[singlePk].addEventListener('change', function(){updateDropStructure(dropBoolean, singlePk)}, false);
                                 }
