@@ -368,7 +368,7 @@
                                     .then((response) => response.json())
                                     .then( 
                                         function (data) {
-                                            console.log(data);
+                                            //console.log(data);
                                             addListenersGradient(data);
                                             addListenersDrop(data);                                      
                                         }
@@ -411,18 +411,18 @@
                                 });
                             }
                             
-                            function updateDropStructure(dropBoolean0, pipe_pk){
+                            function updateDropStructure(pipe_pk){
                                 this.pipe_pk = pipe_pk;
                                 let pipe = fetchPipe(pipe_pk);
                                 let dropBoolean = new Boolean(pipe.upstream_structure_drop_structure);
-                                console.log(dropBoolean);
+                                console.log('dropBoolean:', dropBoolean);
                                 let nuBoolen = new Boolean(false);
                                 if (dropBoolean == true){
                                     nuBoolen = false;
-                                    console.log(nuBoolen);
+                                    console.log('nuBoolen:', nuBoolen);
                                 } else if (dropBoolean == false){
                                     nuBoolen = true;
-                                    console.log(nuBoolen);
+                                    console.log('nuBoolen:', nuBoolen);
                                 }
                                 const pipe_url = ('https://prototype-xi.herokuapp.com/pipe/'+pipe_pk.toString()+'/');
 
