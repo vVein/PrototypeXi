@@ -84,7 +84,7 @@
 
         .centreGridInternalSubDepth2 {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             justify-content: center;
             align-items: center;
             column-gap: 30px;
@@ -252,6 +252,15 @@
                             <div>
                                 Pipe ID
                             </div>
+
+                            <div>
+                                System
+                            </div>
+
+                            <div>
+                                Order
+                            </div>
+
                             <div>
                                 Design Upstream Invert
                             </div>
@@ -282,6 +291,12 @@
                         <div class="centreGridInternalSubDepth2">
                             <div>
                                 {{pipe.pipe_id}}
+                            </div>
+                            <div>
+                                {{pipe.system}}
+                            </div>
+                            <div>
+                                {{pipe.order}}
                             </div>
                             <div>
                                 {{pipe.design_upstream_invert}}
