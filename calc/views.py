@@ -262,7 +262,6 @@ def pipe_size_to_integer(pipe_size):
 
 @login_required(login_url = 'login_page')
 def analyse_systems(request):
-    gradient = Decimal(0.01)
     data = {'pipe_size':['18 Inch Dia. Circular','24 Inch Dia. Circular','30 Inch Dia. Circular',
         '36 Inch Dia. Circular','42 Inch Dia. Circular','48 Inch Dia. Circular','54 Inch Dia. Circular',
         '60 Inch Dia. Circular','66 Inch Dia. Circular','72 Inch Dia. Circular','78 Inch Dia. Circular','8ft x 6ft Box'],
@@ -303,6 +302,8 @@ def analyse_systems(request):
             upstream_structure_Surface_elevation = upstream_structure['surface_elevation'].values[0]
             upstream_invert = upstream_structure_Surface_elevation - minimum_depth_upstream_structure
             upstream_invert = upstream_invert[0]
+            gradient = pipe['design_gradient']
+            upstream_structure_drop_structure = pipe['upstream_structure_drop_structure']
             if not upstream_pipes.empty:
                 range_usp = len(upstream_pipes)
                 for row in range(range_usp):
@@ -332,6 +333,12 @@ def analyse_systems(request):
             downstream_structure_surface_elevation = downstream_structure['surface_elevation'].values[0]
             downstream_invert_from_minimum_depth = downstream_structure_surface_elevation - minimum_depth_downstream_structure
             downstream_invert = min(downstream_invert_from_gradient,downstream_invert_from_minimum_depth)
+            if upstream_structure_drop_structure:
+                minimum_gradient = Decimal(0.005)
+                downstream_invert_from_gradient = upstream_invert - (minimum_gradient * pipe_length)
+                downstream_invert = min(downstream_invert_from_gradient,downstream_invert_from_minimum_depth)
+                upstream_invert = downstream_invert + (gradient * pipe_length)
+
             Pipes.objects.filter(pipe_id = pipe_id).update( design_downstream_invert = downstream_invert )
             df_sys.loc[df_sys['pipe_id'] == pipe_id, 'design_downstream_invert'] = downstream_invert
 
@@ -382,7 +389,6 @@ def export_design(request):
 class PipesList(generics.ListCreateAPIView):
     queryset = Pipes.objects.all()
     serializer_class = PipesSerializer
-
 
 class PipeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pipes.objects.all()
