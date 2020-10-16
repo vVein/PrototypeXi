@@ -298,10 +298,10 @@
                                 {{pipe.order}}
                             </div>
                             <div>
-                                {% if not pipe.design_upstream_invert == Nan %}
+                                {% if not pipe.design_upstream_invert == 'Nan' %}
                                     {{pipe.design_upstream_invert}}
                                 {% else %}
-                                    No athletes.
+                                    'Nan'
                                 {% endif %}
                             </div>
 
