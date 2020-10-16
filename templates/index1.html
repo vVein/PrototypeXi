@@ -298,11 +298,7 @@
                                 {{pipe.order}}
                             </div>
                             <div>
-                                {% if not pipe.design_upstream_invert == 'Nan' %}
-                                    {{pipe.design_upstream_invert}}
-                                {% else %}
-                                    'Nan'
-                                {% endif %}
+                                {{pipe.design_upstream_invert | default_if_none:""}}
                             </div>
 
                             <div>
