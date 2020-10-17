@@ -21,6 +21,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from .serializers import PipesSerializer
+import math
 
 from rest_framework import generics
 
@@ -296,7 +297,7 @@ def analyse_systems(request):
             pipe_size_field = pipe_size_t["pipe_size_t"]
             upstream_structure_depth = upstream_structure_template[pipe_size_field]
             minimum_depth_upstream_structure = upstream_structure_depth[pipe_size_field].values[0]
-            if minimum_depth_upstream_structure == 'Nan':
+            if math.isnan(float(minimum_depth_upstream_structure)):
                 bypass_sys = True
                 break
             pipe = df_sys.iloc[rev_ord]
