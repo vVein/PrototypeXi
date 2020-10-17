@@ -280,6 +280,7 @@ def analyse_systems(request):
     dft = read_frame(all_template_entries)
     max_system = max(df['system']) + 1
     for sys in range(1,max_system):
+        
         df_sys = df[(df['system'] == sys )]
         df_sys = df_sys.sort_values(by='order', ascending=False)
         sys_size = max(df_sys['order'])
@@ -295,6 +296,9 @@ def analyse_systems(request):
             pipe_size_field = pipe_size_t["pipe_size_t"]
             upstream_structure_depth = upstream_structure_template[pipe_size_field]
             minimum_depth_upstream_structure = upstream_structure_depth[pipe_size_field].values[0]
+            if minimum_depth_upstream_structure == 'Nan':
+                bypass_sys = True
+                break
             pipe = df_sys.iloc[rev_ord]
             pipe_id = str(pipe['pipe_id'])
             upstream_pipes = pipes_upstream(df_sys, pipe)
