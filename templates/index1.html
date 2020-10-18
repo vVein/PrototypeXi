@@ -390,9 +390,10 @@
                                     .then((response) => response.json())
                                     .then( 
                                         function (data) {
+                                            var result = _.filter(data, ['project_id', 'PELL']);
                                             //console.log(data);
-                                            addListenersGradient(data);
-                                            addListenersDrop(data);                                      
+                                            addListenersGradient(result);
+                                            addListenersDrop(result);                                      
                                         }
                                     )                           
                             }
