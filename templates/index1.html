@@ -393,7 +393,7 @@
                                     .then( 
                                         function (data) {
                                             var result = data.filter(function (pipe) {
-                                                return pipe.project_id == 'PEL';
+                                                return pipe.project_id == current_project;
                                             });
                                             console.log(result);
                                             addListenersGradient(result);
