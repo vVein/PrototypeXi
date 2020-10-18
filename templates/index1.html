@@ -390,7 +390,9 @@
                                     .then((response) => response.json())
                                     .then( 
                                         function (data) {
-                                            var result = _.filter(data, ['project_id', 'PELL']);
+                                            var result = JSON.parse(data).filter(function (pipe) {
+                                                return pipe.project_id === 'PELL';
+                                            });
                                             //console.log(data);
                                             addListenersGradient(result);
                                             addListenersDrop(result);                                      
