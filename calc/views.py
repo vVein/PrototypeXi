@@ -298,6 +298,7 @@ def analyse_systems(request):
             upstream_structure_depth = upstream_structure_template[pipe_size_field]
             minimum_depth_upstream_structure = upstream_structure_depth[pipe_size_field].values[0]
             if math.isnan(float(minimum_depth_upstream_structure)):
+                messages.warning(request, 'Minimum_depth_upstream_structure = Nan')
                 break
             pipe = df_sys.iloc[rev_ord]
             pipe_id = str(pipe['pipe_id'])
@@ -383,7 +384,9 @@ def register_user(request):
         return render(request, 'register.html', output)
 
 def export_design(request):
-    all_pipe_entries = Pipes.objects.all()
+    active_project_0 = request.session['active_project']
+    active_project = str(active_project_0)
+    all_pipe_entries = Pipes.objects.all().filter( project_id = active_project)
     df = read_frame(all_pipe_entries)
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=export.csv'
