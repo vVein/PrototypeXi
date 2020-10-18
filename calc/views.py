@@ -298,7 +298,7 @@ def analyse_systems(request):
             upstream_structure_depth = upstream_structure_template[pipe_size_field]
             minimum_depth_upstream_structure = upstream_structure_depth[pipe_size_field].values[0]
             if math.isnan(float(minimum_depth_upstream_structure)):
-                messages.warning(request, 'Minimum_depth_upstream_structure = Nan')
+                messages.warning(request, 'Minimum depth upstream structure is Null. Check pipe structure can fit pipe size' )
                 break
             pipe = df_sys.iloc[rev_ord]
             pipe_id = str(pipe['pipe_id'])
