@@ -209,7 +209,7 @@
 
                         <div>
                         <h1>
-                            ACTIVE PROJECT : {{ request.session.active_project }}
+                            ACTIVE PROJECT : {{request.session.active_project}}
                         </h1>
                         <p> <br> </p>
                         </div>
@@ -380,6 +380,8 @@
                                 return(data);   
                    
                             }
+
+                            var current_project = "{{request.session.active_project}}";
 
                             function buildPkList(){
 
