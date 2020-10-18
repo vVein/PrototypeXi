@@ -390,7 +390,7 @@
                                     .then((response) => response.json())
                                     .then( 
                                         function (data) {
-                                            var result = JSON.parse(data).filter(function (pipe) {
+                                            var result = data.filter(function (pipe) {
                                                 return pipe.project_id === 'PELL';
                                             });
                                             //console.log(data);
