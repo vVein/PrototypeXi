@@ -163,45 +163,47 @@ def order_pipes_create_systems(request):
 
     for i in df.index:
         fp = df.iloc[i:i+1]
-        if not_in_list(fp,chkd):
-            sys_no = sys_no + 1
-            sys_lib[sys_no] = {}
-            fdsp = find_furthest_downstream_pipe(df,fp)
-            order = 1
-            sys_lib[sys_no][order] = fdsp
-            print("order")
-            print(sys_no)
-            print(order)
-            Pipes.objects.filter(pipe_id = str(fdsp.iloc[0]['pipe_id'])).update(order = order, system = sys_no)
-            chkd.extend(fdsp['pipe_id'])
-            for row_i in df.index:
-                print(df.iloc[row_i]['pipe_id'])
-                print(fdsp.iloc[0]['pipe_id'])
-                if df.iloc[row_i]['pipe_id'] == str(fdsp['pipe_id']):
-                    df.iloc[row_i]['order'] = order
-            usp = next_upstream_pipe(df,fdsp)
-            if not usp.empty:
-                range_0 = len(usp)
-                for rw in range(range_0):
-                    cur_usp = usp.iloc[rw:rw+1]
-                    if not cur_usp.empty:
+        pipe_empty = pd.isnull(fp['upstream_node'].iloc[0])
+        if not pipe_empty:
+            if not_in_list(fp,chkd):
+                sys_no = sys_no + 1
+                sys_lib[sys_no] = {}
+                fdsp = find_furthest_downstream_pipe(df,fp)
+                order = 1
+                sys_lib[sys_no][order] = fdsp
+                print("order")
+                print(sys_no)
+                print(order)
+                Pipes.objects.filter(pipe_id = str(fdsp.iloc[0]['pipe_id'])).update(order = order, system = sys_no)
+                chkd.extend(fdsp['pipe_id'])
+                for row_i in df.index:
+                    print(df.iloc[row_i]['pipe_id'])
+                    print(fdsp.iloc[0]['pipe_id'])
+                    if df.iloc[row_i]['pipe_id'] == str(fdsp['pipe_id']):
+                        df.iloc[row_i]['order'] = order
+                usp = next_upstream_pipe(df,fdsp)
+                if not usp.empty:
+                    range_0 = len(usp)
+                    for rw in range(range_0):
+                        cur_usp = usp.iloc[rw:rw+1]
+                        if not cur_usp.empty:
 
-                        order = order + 1
-                        sys_lib[sys_no][order] = cur_usp
-                        Pipes.objects.filter(pipe_id = str(cur_usp.iloc[0]['pipe_id'])).update(order = order, system = sys_no)
-                        
-                        while unchecked_entries(sys_lib[sys_no], chkd):
+                            order = order + 1
+                            sys_lib[sys_no][order] = cur_usp
+                            Pipes.objects.filter(pipe_id = str(cur_usp.iloc[0]['pipe_id'])).update(order = order, system = sys_no)
                             
-                            pip = retrieve_unchecked_entry(sys_lib[sys_no], chkd)
-                            chkd.extend(pip['pipe_id'])
-                            usp_n = next_upstream_pipe(df,pip)
-                            if not usp_n.empty:
-                                    range_n = len(usp_n)
-                                    for z in range(range_n):
-                                        pip_z = usp_n.iloc[z:z+1]
-                                        order = order + 1
-                                        sys_lib[sys_no][order] = pip_z
-                                        Pipes.objects.filter(pipe_id = str(pip_z.iloc[0]['pipe_id'])).update(order = order, system = sys_no)
+                            while unchecked_entries(sys_lib[sys_no], chkd):
+                                
+                                pip = retrieve_unchecked_entry(sys_lib[sys_no], chkd)
+                                chkd.extend(pip['pipe_id'])
+                                usp_n = next_upstream_pipe(df,pip)
+                                if not usp_n.empty:
+                                        range_n = len(usp_n)
+                                        for z in range(range_n):
+                                            pip_z = usp_n.iloc[z:z+1]
+                                            order = order + 1
+                                            sys_lib[sys_no][order] = pip_z
+                                            Pipes.objects.filter(pipe_id = str(pip_z.iloc[0]['pipe_id'])).update(order = order, system = sys_no)
     
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
         print(df)
