@@ -22,6 +22,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from .serializers import PipesSerializer
 import math
+import logging
 
 from rest_framework import generics
 
@@ -165,6 +166,8 @@ def order_pipes_create_systems(request):
         fp = df.iloc[i:i+1]
         pipe_empty = pd.isnull(fp['upstream_node'].iloc[0])
         if pipe_empty:
+            logging.warning(pipe_empty)
+            Pipes.objects.filter(pipe_id = str(fp.iloc[0]['pipe_id'])).update(order = 0, system = 0)
             chkd.extend(fp['pipe_id'])
         if not pipe_empty:
             if not_in_list(fp,chkd):
