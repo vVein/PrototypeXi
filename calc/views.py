@@ -164,6 +164,8 @@ def order_pipes_create_systems(request):
     for i in df.index:
         fp = df.iloc[i:i+1]
         pipe_empty = pd.isnull(fp['upstream_node'].iloc[0])
+        if pipe_empty:
+            chkd.extend(fp['pipe_id'])
         if not pipe_empty:
             if not_in_list(fp,chkd):
                 sys_no = sys_no + 1
