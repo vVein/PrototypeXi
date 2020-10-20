@@ -233,6 +233,8 @@ def not_in_list(single,chkl):
     return dec
 
 def find_furthest_downstream_pipe(df,pipe):
+    if pd.isnull(pipe['upstream_node']):
+        return pipe
     ndsp = df.loc[ df['upstream_node'] == pipe.iloc[0]['downstream_node'] ]
     if not ndsp.empty:
         while not ndsp.empty:
