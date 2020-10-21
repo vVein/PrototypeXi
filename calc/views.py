@@ -165,11 +165,15 @@ def order_pipes_create_systems(request):
     for i in df.index:
         fp = df.iloc[i:i+1]
         pipe_empty = pd.isnull(fp['upstream_node'].iloc[0])
+        logging.warning(pipe_empty)
         if pipe_empty:
             logging.warning(pipe_empty)
             Pipes.objects.filter(pipe_id = str(fp.iloc[0]['pipe_id'])).update(order = 0, system = 0)
             chkd.extend(fp['pipe_id'])
+        if fp['upstream_node'].iloc[0] == 'nan':
+            pipe_empty = True
         if not pipe_empty:
+            
             if not_in_list(fp,chkd):
                 sys_no = sys_no + 1
                 sys_lib[sys_no] = {}
