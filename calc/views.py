@@ -173,7 +173,7 @@ def order_pipes_create_systems(request):
         if fp['upstream_node'].iloc[0] == 'nan':
             pipe_empty = True
         if not pipe_empty:
-            
+
             if not_in_list(fp,chkd):
                 sys_no = sys_no + 1
                 sys_lib[sys_no] = {}
@@ -414,3 +414,8 @@ class PipeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pipes.objects.all()
     serializer_class = PipesSerializer
 
+def empty_project(request):
+    active_project_0 = request.session['active_project']
+    active_project = str(active_project_0)
+    Pipes.objects.filter(project_id = active_project).delete()
+    return redirect('index1')

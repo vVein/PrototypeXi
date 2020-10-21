@@ -13,6 +13,7 @@ urlpatterns = [
     path("upload_pipes/", views.upload_pipes_file, name = 'upload_pipes_file'),
     path("order/", views.order_pipes_create_systems, name = 'order_pipes_create_systems'),
     path("analyse/", views.analyse_systems, name = 'analyse_systems'),
+    path("empty/", views.empty_project, name = 'empty_project'),
     path("new-project-name/", views.create_new_project_name, name = 'create_new_project_name'),
     path("select-project/", views.select_project, name = 'select_project'),
     path("developer/", views.developer, name = 'developer'),
