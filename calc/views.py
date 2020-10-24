@@ -407,7 +407,7 @@ def export_design(request):
     
     response = HttpResponse(content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename=PipeDesign.xlsx'
-    xlsx_data = df.to_excel("output.xlsx")
+    xlsx_data = df.to_excel("PipeDesign.xlsx")
     response.write(xlsx_data)
     return response
 
