@@ -47,6 +47,8 @@ class Generic_Structures (models.Model):
     structure_type = models.CharField(max_length = 20)
     drop_across_bottom = models.DecimalField(max_digits=19, decimal_places=2)
     maximum_depth = models.DecimalField(max_digits=19, decimal_places=2)
+    minimum_depth_12_inch = models.DecimalField(max_digits=19, decimal_places=2, blank=True, null=True)
+    minimum_depth_15_inch = models.DecimalField(max_digits=19, decimal_places=2, blank=True, null=True)
     minimum_depth_18_inch = models.DecimalField(max_digits=19, decimal_places=2, blank=True, null=True)
     minimum_depth_24_inch = models.DecimalField(max_digits=19, decimal_places=2, blank=True, null=True)
     minimum_depth_30_inch = models.DecimalField(max_digits=19, decimal_places=2, blank=True, null=True)

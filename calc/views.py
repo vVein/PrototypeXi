@@ -276,7 +276,7 @@ def pipe_size_to_integer(pipe_size):
 
 @login_required(login_url = 'login_page')
 def analyse_systems(request):
-    data = {'pipe_size':['18 Inch Dia. Circular','24 Inch Dia. Circular','30 Inch Dia. Circular',
+    data = {'pipe_size':['12 Inch Dia. Circular','15 Inch Dia. Circular','18 Inch Dia. Circular','24 Inch Dia. Circular','30 Inch Dia. Circular',
         '36 Inch Dia. Circular','42 Inch Dia. Circular','48 Inch Dia. Circular','54 Inch Dia. Circular',
         '60 Inch Dia. Circular','66 Inch Dia. Circular','72 Inch Dia. Circular','78 Inch Dia. Circular','6ft x 6ft Box','8ft x 6ft Box'],
         'pipe_size_t':['minimum_depth_18_inch','minimum_depth_24_inch','minimum_depth_30_inch','minimum_depth_36_inch',
