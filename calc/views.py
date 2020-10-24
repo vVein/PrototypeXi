@@ -401,9 +401,12 @@ def export_design(request):
     active_project = str(active_project_0)
     all_pipe_entries = Pipes.objects.all().filter( project_id = active_project)
     df = read_frame(all_pipe_entries)
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=export.csv'
-    df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
+    #response = HttpResponse(content_type='text/csv')
+    #response['Content-Disposition'] = 'attachment; filename=export.csv'
+    #df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
+    wrapper = df.to_excel("PipeDesign.xlsx")
+    response = HttpResponse(wrapper,content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment ; filename=PipeDesign.xlsx'
     return response
 
 class PipesList(generics.ListCreateAPIView):
