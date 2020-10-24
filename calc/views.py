@@ -404,9 +404,10 @@ def export_design(request):
     #response = HttpResponse(content_type='text/csv')
     #response['Content-Disposition'] = 'attachment; filename=export.csv'
     #df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
-    wrapper = df.to_excel("PipeDesign.xlsx")
-    response = HttpResponse(wrapper,content_type='application/force-download')
+    
+    response = HttpResponse(content_type='application/force-download')
     response['Content-Disposition'] = 'attachment ; filename=PipeDesign.xlsx'
+    df.to_excel(path_or_buf=response, encoding='utf-8')
     return response
 
 class PipesList(generics.ListCreateAPIView):
