@@ -404,13 +404,12 @@ def export_design(request):
     #response = HttpResponse(content_type='text/csv')
     #response['Content-Disposition'] = 'attachment; filename=export.csv'
     #df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
-    
-    response = HttpResponse(content_type='application/vnd.ms-excel')
+    xlsx = df.to_excel("PipeDesign.xlsx")
+    response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename=PipeDesign.xlsx'
-    xlsx_data = df.to_excel("PipeDesign.xlsx")
-    response.write(xlsx_data)
+    #response.write(xlsx)
     return response
-
+    
 class PipesList(generics.ListCreateAPIView):
     queryset = Pipes.objects.all()
     serializer_class = PipesSerializer
