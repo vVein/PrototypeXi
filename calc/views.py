@@ -24,6 +24,7 @@ from .serializers import PipesSerializer
 import math
 import logging
 import xlsxwriter
+from io import BytesIO as IO
 
 from rest_framework import generics
 
@@ -404,11 +405,27 @@ def export_design(request):
     #response = HttpResponse(content_type='text/csv')
     #response['Content-Disposition'] = 'attachment; filename=export.csv'
     #df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
+    df_output = df
 
-    response = HttpResponse(content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=your_template_name.xlsx'
-    xlsx_data = df.to_excel(engine='xlsxwriter')
-    response.write(xlsx_data)
+    # my "Excel" file, which is an in-memory output file (buffer) 
+    # for the new workbook
+    excel_file = IO()
+
+    xlwriter = pd.ExcelWriter(excel_file, engine='xlsxwriter')
+
+    df_output.to_excel(xlwriter, 'sheetname')
+
+    xlwriter.save()
+    xlwriter.close()
+
+    # rewind the buffer
+    excel_file.seek(0)
+
+    # set the mime type so that the browser knows what to do with the file
+    response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
+    # set the file name in the Content-Disposition header
+    response['Content-Disposition'] = 'attachment; filename=myfile.xlsx'
 
     return response
     
