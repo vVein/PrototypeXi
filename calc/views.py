@@ -406,7 +406,7 @@ def export_design(request):
     #df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
     response = HttpResponse(content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename=PipeDesign.xlsx'
-    writer = pd.ExcelWriter('pandasEx.xlsx',  
+    writer = pd.ExcelWriter('PipeDesign.xlsx',  
                    engine ='xlsxwriter') 
     # Write a dataframe to the worksheet. 
     df.to_excel(writer, sheet_name ='Sheet1') 
