@@ -27,7 +27,6 @@ import openpyxl
 
 from rest_framework import generics
 
-
 # Create your views here.
 
 global active_project
