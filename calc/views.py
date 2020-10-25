@@ -407,7 +407,7 @@ def export_design(request):
     xlsx = df.to_excel("PipeDesign.xlsx")
     response = HttpResponse(xlsx, content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename=PipeDesign.xlsx'
-    #response.write(xlsx)
+    response.write(xlsx)
     return response
     
 class PipesList(generics.ListCreateAPIView):
