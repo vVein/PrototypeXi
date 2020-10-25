@@ -404,16 +404,12 @@ def export_design(request):
     #response = HttpResponse(content_type='text/csv')
     #response['Content-Disposition'] = 'attachment; filename=export.csv'
     #df.to_csv(path_or_buf=response, encoding='utf-8', index=False, sep='\t')
+
     response = HttpResponse(content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=PipeDesign.xlsx'
-    writer = pd.ExcelWriter('PipeDesign.xlsx',  
-                   engine ='xlsxwriter') 
-    # Write a dataframe to the worksheet. 
-    df.to_excel(writer, sheet_name ='Sheet1') 
-    # Close the Pandas Excel writer 
-    # object and output the Excel file. 
-    writer.save() 
-    response.write(writer)
+    response['Content-Disposition'] = 'attachment; filename=your_template_name.xlsx'
+    xlsx_data = df.to_excel()
+    response.write(xlsx_data)
+
     return response
     
 class PipesList(generics.ListCreateAPIView):
