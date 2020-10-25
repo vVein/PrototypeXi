@@ -23,6 +23,7 @@ from django.views.generic.edit import UpdateView
 from .serializers import PipesSerializer
 import math
 import logging
+import pandas.io.excel._openpyxl
 
 from rest_framework import generics
 
