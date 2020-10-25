@@ -407,7 +407,7 @@ def export_design(request):
 
     response = HttpResponse(content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename=your_template_name.xlsx'
-    xlsx_data = df.to_excel()
+    xlsx_data = df.to_excel(engine='xlsxwriter')
     response.write(xlsx_data)
 
     return response
