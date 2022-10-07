@@ -408,7 +408,7 @@ def export_design(request):
     df_output = df
 
     # my "Excel" file, which is an in-memory output file (buffer) 
-    # for the new workbook
+    # for the new workbook in
     excel_file = IO()
 
     xlwriter = pd.ExcelWriter(excel_file, engine='xlsxwriter')
